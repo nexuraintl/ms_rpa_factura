@@ -1,8 +1,0 @@
-fastapi
-uvicorn
-python-multipart
-playwright
-python-dotenv
-2captcha-python
-qrcode
-pillow
