@@ -1,0 +1,188 @@
+.asistenciaContainer {
+    animation: fadeIn 0.5s ease-out;
+}
+
+.logoContainer {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+.kioskLogo {
+    height: 70px;
+    width: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+}
+
+.headerSection {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.kioskViewTitle {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--primary-green);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+}
+
+.kioskViewSubtitle {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.4;
+    max-width: 750px;
+    margin: 0 auto;
+}
+
+/* Two Column Layout */
+.asistenciaContentRow {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: stretch;
+}
+
+.asistenciaLeftCol,
+.asistenciaRightCol {
+    display: flex;
+    flex-direction: column;
+}
+
+.mainStepCard {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.stepHeader {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.stepNumber {
+    background: var(--primary-green);
+    color: #ffffff;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 1rem;
+}
+
+.stepHeader h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0;
+}
+
+.stepDescription {
+    color: var(--text-main);
+    font-size: 0.95rem;
+    line-height: 1.4;
+    margin: 0 0 14px 0;
+}
+
+.tipBox {
+    background: #fff9e6;
+    border-left: 4px solid var(--accent-orange);
+    border-radius: 8px;
+    padding: 12px;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.tipIcon {
+    color: var(--accent-orange);
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
+.tipContent {
+    color: #856404;
+    font-size: 0.88rem;
+    line-height: 1.4;
+}
+
+/* Right Column: Places Card */
+.placesCard {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.02);
+}
+
+.placesCard h3 {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--secondary-brown);
+    margin: 0 0 16px 0;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+.placesList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
+    justify-content: center;
+}
+
+.placeItem {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    text-align: left;
+}
+
+.placeIconWrapper {
+    background: rgba(0, 104, 55, 0.08);
+    color: var(--primary-green);
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.placeText {
+    color: var(--text-main);
+    font-size: 0.88rem;
+    line-height: 1.4;
+}
+
+.placeText strong {
+    color: var(--text-main);
+    font-weight: 700;
+}
+
+@media (max-width: 800px) {
+    .asistenciaContentRow {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+}
