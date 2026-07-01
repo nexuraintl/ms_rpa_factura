@@ -312,6 +312,45 @@ def complete_invoice_generation(page, context, search_value, phone, email):
     except Exception as pay_err:
         print(f"Advertencia: No se pudo capturar el enlace de pago en línea o generar el QR: {pay_err}")
 
+    # 5. Capturar el valor a pagar
+    amount_to_pay = None
+    try:
+        amount_to_pay = page.evaluate(r"""() => {
+            try {
+                const innerTextMatch = document.body.innerText.match(/Valor a pagar:[\s\n]*(\$?\s*[\d,.]+)/i);
+                if (innerTextMatch && innerTextMatch[1]) return innerTextMatch[1].trim();
+            } catch(e) {}
+            
+            const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null, false);
+            let node;
+            let foundValor = false;
+            while (node = walker.nextNode()) {
+                const text = node.nodeValue.trim();
+                if (text.toLowerCase().includes('valor a pagar')) {
+                    const match = text.match(/valor a pagar[:\s]*(\$?\s*[\d,.]+)/i);
+                    if (match && match[1]) return match[1].trim();
+                    foundValor = true;
+                } else if (foundValor && text.match(/^\$?\s*[\d,.]+$/)) {
+                    return text.trim();
+                }
+            }
+            
+            const inputs = Array.from(document.querySelectorAll('input'));
+            for (let i of inputs) {
+                if (i.value && i.value.trim().startsWith('$')) {
+                    return i.value.trim();
+                }
+            }
+            return null;
+        }""")
+        if amount_to_pay:
+            # Limpiar el valor para quitar símbolo $ y comas
+            amount_clean = amount_to_pay.replace('$', '').replace(',', '').strip()
+            print(f"Valor a pagar extraído: {amount_to_pay} -> Limpio: {amount_clean}")
+            amount_to_pay = amount_clean
+    except Exception as e:
+        print(f"Advertencia: No se pudo capturar el valor a pagar: {e}")
+
     print(f"[TIMING] TOTAL complete_invoice_generation: {time.time() - _t_fase0:.2f}s")
     return {
         "status": "success",
@@ -319,7 +358,8 @@ def complete_invoice_generation(page, context, search_value, phone, email):
         "file": file_path,
         "filename": filename,
         "payment_url": payment_url,
-        "payment_qr": payment_qr
+        "payment_qr": payment_qr,
+        "amount": amount_to_pay
     }
 
 def solve_captcha_worker(api_key, sitekey, page_url):
